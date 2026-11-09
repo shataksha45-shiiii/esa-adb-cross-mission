@@ -121,6 +121,24 @@ Month-block bootstrap over the test period (95% CI, 5 seeds): C3's M1→M2 gain 
 
 Details: [notes/step13](notes/step13-ablations-ci-sensitivity.md), [results/step13_ci.csv](results/step13_ci.csv).
 
+### 5.5 Step 14: all official metrics and the operator view (post-hoc)
+![Test F0.5 with 95% CIs](figures/fig5_forest.png)
+
+| Pair | Method | Alarms / month | False alarms / month | Events caught | Time in alarm |
+|---|---|---|---|---|---|
+| M1→M2 | Heydari static | 14.1 | 0.00 | 76% | 3.6% |
+| M1→M2 | C3 / C5 (ours) | 3.9 | 1.47 | 15% | 2.6% |
+| M2→M1 | Heydari static | 88.8 | 79.5 | 66% | 42% |
+| M2→M1 | Source-tuned transfer | 6.0 | 5.15 | 35% | 22% |
+| M2→M1 | C5 (ours, post-hoc) | 0.31 | 0.17 | 11% | 4.5% |
+| M2→M1 | Target-label-tuned (oracle) | 0.34 | 0.10 | 10% | 0.1% |
+
+- On M2→M1, Heydari-style and source-tuned transfer would flood operators (80 and 5 false alarms per month). C5 stays near the oracle's workload.
+- On M1→M2 our methods are cautious, and they catch no real *anomalies* (only rare events).
+- Affiliation F0.5 and ADTQC rank methods differently from event-wise F0.5 ([notes/step14](notes/step14-official-metrics-operator-view-figures.md)).
+
+![Where alarms fire on Mission 1](figures/fig7_timeline.png)
+
 ## 6. Analysis
 **Model vs settings** (online, CV on the target's training period):
 
@@ -157,6 +175,7 @@ python src/inject.py --version 5 --source 1 --target 2   # Step 10: injection wi
 python src/step10.py --dev                     # Step 10: all baselines + candidates on training labels
 python src/step10.py --test                    # Step 10: one post-hoc test (5 seeds, official + anomalies-only)
 python src/step13.py --run && python src/step13.py --bootstrap   # Step 13 (needs inject runs: --roll-win 15/60, --amp-floor 0.2)
+python src/step14.py && python scripts/make_figures_step14.py      # Step 14
 python scripts/make_figures.py                 # figures/
 ```
 Runtime on an Apple-silicon laptop: about 5 min per calibration with Mission 2 as the target, about 23 min with Mission 1 as the target; the final test takes a few more minutes.
@@ -170,6 +189,7 @@ src/            pipeline: loader, preprocess, data, normaliser, detector, thresh
                 repro_globalstd.py (Step 11: official GlobalSTD baseline re-run in our pipeline)
                 repro_globalstd_native.py (Step 12: same baseline at 18 s / 1 min / 5 min grids)
                 step13.py (Step 13: ablations, month-block bootstrap CIs, sensitivity)
+                step14.py (Step 14: all official metrics + operator view); scripts/make_figures_step14.py
 scripts/        make_figures.py
 results/        all CSVs and logs behind every number in this README
 figures/        README figures
