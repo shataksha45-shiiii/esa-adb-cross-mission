@@ -1,0 +1,133 @@
+kind                                                            what  source  target  point     lo     hi clear
+   F                                           B0 target-label-tuned       1       1  0.481  0.350  0.587   NaN
+   F                                           B1 source-label-tuned       1       1  0.481  0.350  0.587   NaN
+   F                                                B2 fixed default       1       1  0.048  0.026  0.097   NaN
+   F                                               B3 Heydari static       1       1  0.084  0.035  0.325   NaN
+   F                                               C1 sens floor=0.2       1       1  0.088  0.037  0.318   NaN
+   F                                                  C1 sens reps=1       1       1  0.101  0.000  0.225   NaN
+   F                                                  C1 sens reps=2       1       1  0.089  0.035  0.325   NaN
+   F                                    C1 v3 replayed fakes + N-hat       1       1  0.096  0.041  0.318   NaN
+   F                                              C3 ab-AE (|z| off)       1       1  0.101  0.000  0.225   NaN
+   F                                     C3 ab-EB (no event builder)       1       1  0.032  0.011  0.338   NaN
+   F                                            C3 ab-K (k-of-n = 1)       1       1  0.081  0.040  0.169   NaN
+   F                                     C3 ab-Q (quantile, not EVT)       1       1  0.146  0.057  0.444   NaN
+   F                                                C3 ab-Z (AE off)       1       1  0.089  0.036  0.327   NaN
+   F                                            C3 fake-recall match       1       1  0.089  0.035  0.325   NaN
+   F                                               C3 sens floor=0.2       1       1  0.089  0.035  0.325   NaN
+   F                                                  C3 sens reps=1       1       1  0.089  0.035  0.325   NaN
+   F                                                  C3 sens reps=2       1       1  0.089  0.035  0.325   NaN
+   F                                              C5 ab-AE (|z| off)       1       1  0.312  0.182  0.426   NaN
+   F                                     C5 ab-EB (no event builder)       1       1  0.168  0.069  0.440   NaN
+   F                                            C5 ab-K (k-of-n = 1)       1       1  0.307  0.200  0.470   NaN
+   F                                     C5 ab-Q (quantile, not EVT)       1       1  0.291  0.163  0.514   NaN
+   F                                                C5 ab-Z (AE off)       1       1  0.282  0.132  0.472   NaN
+   F                                    C5 fake-recall + rolling |z|       1       1  0.344  0.204  0.532   NaN
+   F                                                  C5 sens reps=1       1       1  0.456  0.314  0.568   NaN
+   F                                                  C5 sens reps=2       1       1  0.344  0.204  0.532   NaN
+   F                                              C5 sens window=15d       1       1  0.472  0.318  0.595   NaN
+   F                                              C5 sens window=60d       1       1  0.255  0.119  0.497   NaN
+   F                            L1 v1 random fakes + best injected F       1       1  0.312  0.182  0.426   NaN
+   F                                      L2 v2 random fakes + N-hat       1       1  0.096  0.041  0.318   NaN
+diff         C3 fake-recall match minus C1 v3 replayed fakes + N-hat       1       1 -0.007 -0.021  0.015 False
+diff C5 fake-recall + rolling |z| minus C1 v3 replayed fakes + N-hat       1       1  0.248  0.050  0.418  True
+diff                C3 fake-recall match minus B1 source-label-tuned       1       1 -0.393 -0.504 -0.153  True
+diff            C5 fake-recall + rolling |z| minus B3 Heydari static       1       1  0.260  0.001  0.446  True
+   F                                           B0 target-label-tuned       1       2  0.849  0.805  0.880   NaN
+   F                                           B1 source-label-tuned       1       2  0.087  0.027  0.144   NaN
+   F                                                B2 fixed default       1       2  0.892  0.861  0.922   NaN
+   F                                               B3 Heydari static       1       2  0.934  0.913  0.953   NaN
+   F                                               C1 sens floor=0.2       1       2  0.156  0.070  0.236   NaN
+   F                                                  C1 sens reps=1       1       2  0.869  0.839  0.895   NaN
+   F                                                  C1 sens reps=2       1       2  0.156  0.070  0.236   NaN
+   F                                    C1 v3 replayed fakes + N-hat       1       2  0.156  0.070  0.236   NaN
+   F                                              C3 ab-AE (|z| off)       1       2  0.386  0.283  0.469   NaN
+   F                                     C3 ab-EB (no event builder)       1       2  0.190  0.146  0.230   NaN
+   F                                            C3 ab-K (k-of-n = 1)       1       2  0.386  0.283  0.469   NaN
+   F                                     C3 ab-Q (quantile, not EVT)       1       2  0.357  0.274  0.433   NaN
+   F                                                C3 ab-Z (AE off)       1       2  0.000  0.000  0.000   NaN
+   F                                            C3 fake-recall match       1       2  0.386  0.283  0.469   NaN
+   F                                               C3 sens floor=0.2       1       2  0.386  0.283  0.469   NaN
+   F                                                  C3 sens reps=1       1       2  0.867  0.836  0.895   NaN
+   F                                                  C3 sens reps=2       1       2  0.594  0.501  0.674   NaN
+   F                                              C5 ab-AE (|z| off)       1       2  0.386  0.283  0.469   NaN
+   F                                     C5 ab-EB (no event builder)       1       2  0.190  0.146  0.230   NaN
+   F                                            C5 ab-K (k-of-n = 1)       1       2  0.386  0.283  0.469   NaN
+   F                                     C5 ab-Q (quantile, not EVT)       1       2  0.357  0.274  0.433   NaN
+   F                                                C5 ab-Z (AE off)       1       2  0.000  0.000  0.000   NaN
+   F                                    C5 fake-recall + rolling |z|       1       2  0.386  0.283  0.469   NaN
+   F                                                  C5 sens reps=1       1       2  0.869  0.816  0.906   NaN
+   F                                                  C5 sens reps=2       1       2  0.386  0.283  0.469   NaN
+   F                                              C5 sens window=15d       1       2  0.386  0.283  0.469   NaN
+   F                                              C5 sens window=60d       1       2  0.386  0.283  0.469   NaN
+   F                            L1 v1 random fakes + best injected F       1       2  0.089  0.040  0.138   NaN
+   F                                      L2 v2 random fakes + N-hat       1       2  0.089  0.040  0.138   NaN
+diff         C3 fake-recall match minus C1 v3 replayed fakes + N-hat       1       2  0.230  0.153  0.315  True
+diff C5 fake-recall + rolling |z| minus C1 v3 replayed fakes + N-hat       1       2  0.230  0.153  0.315  True
+diff                C3 fake-recall match minus B1 source-label-tuned       1       2  0.298  0.215  0.379  True
+diff            C5 fake-recall + rolling |z| minus B3 Heydari static       1       2 -0.549 -0.648 -0.467  True
+   F                                           B0 target-label-tuned       2       1  0.278  0.145  0.397   NaN
+   F                                           B1 source-label-tuned       2       1  0.066  0.034  0.152   NaN
+   F                                                B2 fixed default       2       1  0.040  0.023  0.074   NaN
+   F                                               B3 Heydari static       2       1  0.007  0.002  0.012   NaN
+   F                                               C1 sens floor=0.2       2       1  0.081  0.037  0.225   NaN
+   F                                                  C1 sens reps=1       2       1  0.088  0.037  0.303   NaN
+   F                                                  C1 sens reps=2       2       1  0.088  0.037  0.303   NaN
+   F                                    C1 v3 replayed fakes + N-hat       2       1  0.081  0.037  0.225   NaN
+   F                                              C3 ab-AE (|z| off)       2       1  0.144  0.021  0.274   NaN
+   F                                     C3 ab-EB (no event builder)       2       1  0.028  0.010  0.292   NaN
+   F                                            C3 ab-K (k-of-n = 1)       2       1  0.090  0.048  0.180   NaN
+   F                                     C3 ab-Q (quantile, not EVT)       2       1  0.141  0.067  0.342   NaN
+   F                                                C3 ab-Z (AE off)       2       1  0.092  0.039  0.330   NaN
+   F                                            C3 fake-recall match       2       1  0.081  0.037  0.225   NaN
+   F                                               C3 sens floor=0.2       2       1  0.081  0.037  0.225   NaN
+   F                                                  C3 sens reps=1       2       1  0.088  0.037  0.303   NaN
+   F                                                  C3 sens reps=2       2       1  0.088  0.037  0.303   NaN
+   F                                              C5 ab-AE (|z| off)       2       1  0.178  0.040  0.316   NaN
+   F                                     C5 ab-EB (no event builder)       2       1  0.220  0.090  0.400   NaN
+   F                                            C5 ab-K (k-of-n = 1)       2       1  0.154  0.098  0.239   NaN
+   F                                     C5 ab-Q (quantile, not EVT)       2       1  0.350  0.181  0.552   NaN
+   F                                                C5 ab-Z (AE off)       2       1  0.238  0.095  0.403   NaN
+   F                                    C5 fake-recall + rolling |z|       2       1  0.261  0.122  0.419   NaN
+   F                                                  C5 sens reps=1       2       1  0.244  0.097  0.405   NaN
+   F                                                  C5 sens reps=2       2       1  0.255  0.123  0.387   NaN
+   F                                              C5 sens window=15d       2       1  0.457  0.302  0.586   NaN
+   F                                              C5 sens window=60d       2       1  0.293  0.122  0.584   NaN
+   F                            L1 v1 random fakes + best injected F       2       1  0.234  0.139  0.343   NaN
+   F                                      L2 v2 random fakes + N-hat       2       1  0.081  0.037  0.225   NaN
+diff         C3 fake-recall match minus C1 v3 replayed fakes + N-hat       2       1  0.000  0.000  0.000 False
+diff C5 fake-recall + rolling |z| minus C1 v3 replayed fakes + N-hat       2       1  0.180  0.002  0.330  True
+diff                C3 fake-recall match minus B1 source-label-tuned       2       1  0.015 -0.068  0.150 False
+diff            C5 fake-recall + rolling |z| minus B3 Heydari static       2       1  0.255  0.113  0.413  True
+   F                                           B0 target-label-tuned       2       2  0.846  0.802  0.879   NaN
+   F                                           B1 source-label-tuned       2       2  0.846  0.802  0.879   NaN
+   F                                                B2 fixed default       2       2  0.890  0.858  0.918   NaN
+   F                                               B3 Heydari static       2       2  0.965  0.955  0.975   NaN
+   F                                               C1 sens floor=0.2       2       2  0.139  0.068  0.208   NaN
+   F                                                  C1 sens reps=1       2       2  0.139  0.068  0.208   NaN
+   F                                                  C1 sens reps=2       2       2  0.139  0.068  0.208   NaN
+   F                                    C1 v3 replayed fakes + N-hat       2       2  0.139  0.068  0.208   NaN
+   F                                              C3 ab-AE (|z| off)       2       2  0.308  0.205  0.385   NaN
+   F                                     C3 ab-EB (no event builder)       2       2  0.467  0.385  0.542   NaN
+   F                                            C3 ab-K (k-of-n = 1)       2       2  0.824  0.784  0.857   NaN
+   F                                     C3 ab-Q (quantile, not EVT)       2       2  0.292  0.194  0.370   NaN
+   F                                                C3 ab-Z (AE off)       2       2  0.766  0.695  0.819   NaN
+   F                                            C3 fake-recall match       2       2  0.778  0.716  0.824   NaN
+   F                                               C3 sens floor=0.2       2       2  0.778  0.716  0.824   NaN
+   F                                                  C3 sens reps=1       2       2  0.774  0.707  0.823   NaN
+   F                                                  C3 sens reps=2       2       2  0.778  0.714  0.826   NaN
+   F                                              C5 ab-AE (|z| off)       2       2  0.027  0.000  0.062   NaN
+   F                                     C5 ab-EB (no event builder)       2       2  0.902  0.853  0.938   NaN
+   F                                            C5 ab-K (k-of-n = 1)       2       2  0.868  0.817  0.905   NaN
+   F                                     C5 ab-Q (quantile, not EVT)       2       2  0.235  0.058  0.374   NaN
+   F                                                C5 ab-Z (AE off)       2       2  0.868  0.817  0.905   NaN
+   F                                    C5 fake-recall + rolling |z|       2       2  0.868  0.817  0.905   NaN
+   F                                                  C5 sens reps=1       2       2  0.364  0.267  0.442   NaN
+   F                                                  C5 sens reps=2       2       2  0.364  0.267  0.442   NaN
+   F                                              C5 sens window=15d       2       2  0.884  0.862  0.903   NaN
+   F                                              C5 sens window=60d       2       2  0.868  0.784  0.918   NaN
+   F                            L1 v1 random fakes + best injected F       2       2  0.188  0.107  0.262   NaN
+   F                                      L2 v2 random fakes + N-hat       2       2  0.119  0.045  0.192   NaN
+diff         C3 fake-recall match minus C1 v3 replayed fakes + N-hat       2       2  0.640  0.557  0.724  True
+diff C5 fake-recall + rolling |z| minus C1 v3 replayed fakes + N-hat       2       2  0.730  0.637  0.821  True
+diff                C3 fake-recall match minus B1 source-label-tuned       2       2 -0.068 -0.105 -0.040  True
+diff            C5 fake-recall + rolling |z| minus B3 Heydari static       2       2 -0.096 -0.150 -0.058  True
