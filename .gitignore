@@ -12,3 +12,6 @@ CLAUDE.md
 notes/STUDY-GUIDE-*.md
 # private: contains phone number
 resume/
+# private planning notes
+notes/ROADMAP-*.md
+notes/rescue-plan-*.md

@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from data import SPLIT, load_labels, load_mission, split_index                     # noqa: E402
 from normaliser import fit_matrix, transform_matrix                                # noqa: E402
 from run_final import ABS_W, AE, STEPS                                             # noqa: E402
+from rolling import rolling_center                                              # noqa: E402
 from tune import (CATS, POST, Q2, _merge, build_events_causal, evt_fit, evt_thr,   # noqa: E402
                   fast_ew, score_ae, score_maxabs, train_ae)
 
@@ -195,9 +196,10 @@ def gt_from(placed, tns_eval, offset):
                 nominal=total - (ge - gs).sum())
 
 
-def scores(model, Z):
+def scores(model, Z, roll=False):
     Sa = np.stack([score_ae([model], Z[:, j], AE["w"], AE["reduce"], True) for j in range(Z.shape[1])], 1)
-    Sb = np.stack([score_maxabs(Z[:, j], ABS_W) for j in range(Z.shape[1])], 1)
+    Zb = rolling_center(Z) if roll else Z                             # Step 10 (v5): |z| on rolling re-centred z
+    Sb = np.stack([score_maxabs(Zb[:, j], ABS_W) for j in range(Z.shape[1])], 1)
     return Sa, Sb
 
 
@@ -206,8 +208,9 @@ def calibrate(src, tgt, seed=0, log=print, version=1):
     i_s = split_index(src, ts)
     model = train_ae(transform_matrix(Xs[:i_s], fit_matrix(Xs[:i_s])), AE["w"], AE["hidden"], AE["code"],
                      STEPS, seed, center=True)
-    prior = {1: source_prior, 3: source_prior_v3, 4: source_prior_v4}[version](src)
-    n_ev = len(prior["events"]) if version in (3, 4) else len(prior["pairs"])
+    prior = {1: source_prior, 3: source_prior_v3, 4: source_prior_v4, 5: source_prior_v3}[version](src)
+    roll = version == 5                                               # v5 = v3 fakes + rolling |z| (Step 10)
+    n_ev = len(prior["events"]) if version in (3, 4, 5) else len(prior["pairs"])
     log(f"source M{src} prior (v{version}): {prior['rate']:.2f} events/month, {n_ev} source events", flush=True)
     t, X, _ = load_mission(tgt)
     i = split_index(tgt, t)
@@ -216,7 +219,7 @@ def calibrate(src, tgt, seed=0, log=print, version=1):
     rows = []
     for k, (fit, ev) in enumerate([(slice(0, mid), slice(mid, i)), (slice(mid, i), slice(0, mid))]):
         Z = transform_matrix(X[:i], fit_matrix(X[fit]))               # normaliser: clean fit half only
-        Sa, Sb = scores(model, Z)                                     # clean scores -> EVT fits on fit half
+        Sa, Sb = scores(model, Z, roll)                               # clean scores -> EVT fits on fit half
         fa = [evt_fit(Sa[fit][AE["w"]:][:, j]) for j in range(Z.shape[1])]
         fb = [evt_fit(Sb[fit][ABS_W:][:, j]) for j in range(Z.shape[1])]
         lo = ev.start + AE["w"]                                       # keep injections away from the fold edge
@@ -228,7 +231,7 @@ def calibrate(src, tgt, seed=0, log=print, version=1):
                 Zi, placed = inject_v4(Z, lo, hi, tall, prior, D_tgt, rng)
             else:
                 Zi, placed = inject(Z, lo, hi, tall, prior, rng)
-            Sai, Sbi = scores(model, Zi)
+            Sai, Sbi = scores(model, Zi, roll)
             SEa, SEb, tns = Sai[ev], Sbi[ev], tall[ev]
             gt = gt_from(placed, tns, ev.start)
             for q, q2 in itertools.product(POST["q"], Q2):
@@ -257,7 +260,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", type=int, required=True)
     ap.add_argument("--target", type=int, required=True)
-    ap.add_argument("--version", type=int, default=1, choices=[1, 3, 4])
+    ap.add_argument("--version", type=int, default=1, choices=[1, 3, 4, 5])
     a = ap.parse_args()
     t0 = time.time()
     df, agg, best = calibrate(a.source, a.target, version=a.version)

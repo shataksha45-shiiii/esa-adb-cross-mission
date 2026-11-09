@@ -5,8 +5,8 @@ This repository studies that question on the two real missions of the
 [ESA Anomaly Detection Benchmark (ESA-ADB)](https://github.com/kplabs-pl/ESA-ADB). It uses the official
 corrected event-wise F0.5 metric, the official train/test split and online (causal) detection throughout.
 
-> **Status:** research in progress (target: IEEE SPACE 2027). The numbers below are final for the current method.
-> Every design was frozen before its results were seen ([pre-registration log](notes/step9-design-frozen.md)).
+> **Status:** research in progress (target: IEEE SPACE 2027). Step 10 (baselines + improvement round) is done; see §5.3.
+> Every design was frozen before its results were seen ([Step 9 log](notes/step9-design-frozen.md), [Step 10 protocol](notes/step10-protocol-frozen.md)).
 
 ![Cross-mission results](figures/fig3_results.png)
 
@@ -14,6 +14,7 @@ corrected event-wise F0.5 metric, the official train/test split and online (caus
 - **The model transfers; the settings don't.** On Mission 2, an autoencoder trained on Mission 1 matches Mission 2's own model (CV F0.5 0.860 vs 0.858). Transfer fails because post-processing settings (thresholds, event rules, channel voting) tuned on one mission are badly wrong on the other.
 - **We propose label-free calibration by synthetic injection.** Replay real anomalies from the labelled *source* mission into the *unlabelled* target data, estimate how many real events hide in the target, and choose the settings that would score best.
 - **Test-set result (official metric, 5 seeds):** M1→M2 improves from **0.087 to 0.156**, and M2→M1 from **0.066 to 0.081**. These are real but modest gains, far below what target labels allow (0.846 / 0.481).
+- **Step 10 (post-hoc test, 4th use of test labels):** *fake-recall matching*, selected by a frozen rule, lifts M1→M2 to **0.386** but leaves M2→M1 at 0.081. Adding a *rolling* |z| lifts M2→M1 to **0.261**, close to the label-tuned 0.278. **No single method wins both directions.** Simple baselines (a fixed default, and Heydari et al. 2026) reach 0.89–0.93 on M1→M2 but collapse on M2→M1 (0.007–0.040).
 - **Two negative findings, both measured:** (1) synthetic anomalies stay easier to catch than real ones, so the method is too cautious on Mission 2; (2) Mission 1's test years contain level shifts that a level-based detector can't survive and that calibration on the training years can't foresee.
 
 ---
@@ -93,6 +94,26 @@ Full per-seed results: [results/final_step9.csv](results/final_step9.csv).
 
 v4 was rejected by a rule fixed in advance that uses **source labels only** ([notes/step9f](notes/step9f-v4-shape-transplant-failed.md)).
 
+### 5.3 Step 10: baselines and an improvement round (post-hoc test, official metric, 5 seeds)
+Protocol and candidate list were frozen before any number ([protocol](notes/step10-protocol-frozen.md)). The selection rule (best *worse* direction on dev) picked C3.
+
+| Method | M1→M2 | M2→M1 |
+|---|---|---|
+| Target-label-tuned settings (upper bound) | 0.849 | 0.278 |
+| Source-label-tuned settings (old transfer) | 0.087 | 0.066 |
+| Fixed default, no tuning | 0.892 | 0.040 |
+| Heydari et al. 2026, static (source-rate budget) | **0.934** | 0.007 |
+| C1: v3 (Step 9) | 0.156 | 0.081 |
+| **C3: fake-recall matching (selected)** | **0.386** | 0.081 |
+| C5: fake-recall + rolling \|z\| (post-hoc observation) | 0.386 | **0.261** |
+
+- Pre-registered criterion (beat C1 in **both** directions): **not met**. There is a clear gain in one direction only.
+- The rolling |z| confirms the drift diagnosis: it fixes Mission 1 as the target.
+- Event-dense Mission 2 rewards loose, level-based alarms; drifting Mission 1 punishes them.
+- Anomalies-only F0.5 is low for every method: most high Mission 2 scores come from rare (commanded) events.
+
+Details: [notes/step10](notes/step10-baselines-and-final-test.md), [results/final_step10.csv](results/final_step10.csv).
+
 ## 6. Analysis
 **Model vs settings** (online, CV on the target's training period):
 
@@ -111,9 +132,9 @@ v4 was rejected by a rule fixed in advance that uses **source labels only** ([no
 - Gains on test are small, and Mission 2 recall stays about 3%: the synthetic events are not yet representative of real ones.
 - Only two missions exist in ESA-ADB, so each transfer direction is a single case.
 - Methods v2–v4 were designed after seeing development diagnostics on target training labels (flagged in the log).
-- The test labels were used three times over the project (Steps 7, 8, 9). Any later test number will be reported as post-hoc.
-- 5-minute resampling (our choice; the paper uses about 18–30 s) can miss events shorter than 5 minutes.
-- Numbers quoted from other papers: the PitIA results (0.424 / 0.882) are known to us only as cited by arXiv 2609.10017, and the ESA-ADB Mission 2 baseline is reported differently in different sources ([notes](notes/step9-literature-check.md)). None of those works does cross-mission transfer, so they aren't directly comparable.
+- The test labels were used four times over the project (Steps 7, 8, 9, 10). Step 10's numbers are post-hoc, and so is anything later.
+- 5-minute resampling (our choice; the paper uses about 18–30 s) can miss events shorter than 5 minutes, **and it inflates absolute scores**. The official GlobalSTD5 rule, re-run in our pipeline, scores 0.400 on Mission 2 against 0.064 published (Mission 1: 0.009 vs 0.003). Our absolute F0.5 values are therefore **not comparable** to numbers published at the native rate (ESA-ADB, PitIA). Only comparisons within our pipeline are fair ([notes/step11](notes/step11-literature-and-baseline-reproduction.md)).
+- Numbers quoted from other papers: the PitIA results (0.424 / 0.882) are known to us only as cited by arXiv 2609.10017, and the ESA-ADB Mission 2 baseline is **0.079** (PCC; ESA-ADB v2 Table 2, all channels). The 0.241 quoted elsewhere is not an M2 event-wise score ([notes/step11](notes/step11-literature-and-baseline-reproduction.md)). **Prior cross-mission work exists:** Heydari, Mostafavi & Nyarko (IEEE Access, 2026, [doi:10.1109/ACCESS.2026.3714708](https://doi.org/10.1109/ACCESS.2026.3714708)) study M1↔M2 threshold transfer on ESA-ADB with a fixed robust-z scorer and workload metrics. We position against it and compare to it in Step 10 ([notes](notes/step9-literature-check.md)).
 
 ## 8. Reproduce
 ```bash
@@ -125,6 +146,9 @@ python src/run_final.py                        # Step 8: source-tuned transfer t
 python src/inject.py --version 3 --source 1 --target 2   # label-free calibration (repeat for all 4 pairs)
 python src/run_step9.py --dev                  # diagnosis on training labels
 python src/run_step9.py --test                 # final test (5 seeds, official metric)
+python src/inject.py --version 5 --source 1 --target 2   # Step 10: injection with rolling |z| (all 4 pairs)
+python src/step10.py --dev                     # Step 10: all baselines + candidates on training labels
+python src/step10.py --test                    # Step 10: one post-hoc test (5 seeds, official + anomalies-only)
 python scripts/make_figures.py                 # figures/
 ```
 Runtime on an Apple-silicon laptop: about 5 min per calibration with Mission 2 as the target, about 23 min with Mission 1 as the target; the final test takes a few more minutes.
@@ -134,6 +158,8 @@ Runtime on an Apple-silicon laptop: about 5 min per calibration with Mission 2 a
 src/            pipeline: loader, preprocess, data, normaliser, detector, threshold (EVT), events, evaluator
                 tune.py (CV bench, causal event builder), run_final.py (Step 8), inject.py + inject_v2.py (Step 9)
                 diag_transfer.py, adapt_stats.py (diagnostics), run_step9.py (dev check + final test)
+                rolling.py + step10.py (Step 10: rolling normalisation, baselines, fake-recall matching)
+                repro_globalstd.py (Step 11: official GlobalSTD baseline re-run in our pipeline)
 scripts/        make_figures.py
 results/        all CSVs and logs behind every number in this README
 figures/        README figures
