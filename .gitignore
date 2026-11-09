@@ -10,3 +10,5 @@ cache_preprocess.log
 CLAUDE.md
 .claude/
 notes/STUDY-GUIDE-*.md
+# private: contains phone number
+resume/
