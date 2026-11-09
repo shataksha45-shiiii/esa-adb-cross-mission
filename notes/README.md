@@ -23,3 +23,4 @@ One note per step: what was done, why, key terms, the maths, the code line by li
 | — | [Literature check](step9-literature-check.md) (updated: Heydari 2026, Goswami 2023, Perini 2023) |
 | 10 | [**Protocol (frozen before results)**](step10-protocol-frozen.md) |
 | 10 | [Baselines, improvement round, post-hoc test](step10-baselines-and-final-test.md) |
+| 11 | [Literature settled + official baseline reproduction + paper claim](step11-literature-and-baseline-reproduction.md) |
