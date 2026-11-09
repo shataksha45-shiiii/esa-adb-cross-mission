@@ -27,3 +27,4 @@ One note per step: what was done, why, key terms, the maths, the code line by li
 | 12 | [Official baseline reproduced at the native rate; grid sensitivity of F0.5](step12-native-rate-reproduction.md) |
 | 13 | [**Protocol (frozen)**](step13-protocol-frozen.md) |
 | 13 | [Ablations, bootstrap CIs, sensitivity](step13-ablations-ci-sensitivity.md) |
+| 14 | [All official metrics, operator view, failure figures](step14-official-metrics-operator-view-figures.md) |
