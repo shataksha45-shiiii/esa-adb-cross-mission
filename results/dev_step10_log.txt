@@ -1,0 +1,19 @@
+dev M1->M1 done
+dev M1->M2 done
+dev M2->M1 done
+dev M2->M2 done
+/Users/shataksha/satellite-anomaly/src/step10.py:177: Pandas4Warning: Starting with pandas version 4.0 all arguments of min will be keyword-only.
+  g["min transfer"] = g[["M1->M2", "M2->M1"]].min(1)
+                                         M1->M1  M1->M2  M2->M1  M2->M2  min transfer
+method                                                                               
+B0 target-label-tuned (upper bound)       0.573   0.860   0.503   0.861         0.503
+B1 source-label-tuned                     0.573   0.242   0.217   0.861         0.217
+B2 fixed default                          0.135   0.744   0.142   0.744         0.142
+B3 Heydari static (source-rate budget)    0.508   0.932   0.039   0.719         0.039
+B4 Heydari rolling (source-rate budget)   0.000   0.828   0.000   0.783         0.000
+B5 |z|-max baseline, source-tuned         0.431   0.170   0.197   0.860         0.170
+C1 v3 (Step 9)                            0.478   0.380   0.507   0.299         0.380
+C2 v3 AE-only                             0.387   0.380   0.415   0.299         0.380
+C3 fake-recall match                      0.436   0.595   0.507   0.758         0.507
+C4 v3 rule + rolling |z|                  0.217   0.380   0.469   0.299         0.380
+C5 fake-recall + rolling |z|              0.314   0.595   0.469   0.826         0.469
