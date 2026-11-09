@@ -133,7 +133,7 @@ Details: [notes/step10](notes/step10-baselines-and-final-test.md), [results/fina
 - Only two missions exist in ESA-ADB, so each transfer direction is a single case.
 - Methods v2–v4 were designed after seeing development diagnostics on target training labels (flagged in the log).
 - The test labels were used four times over the project (Steps 7, 8, 9, 10). Step 10's numbers are post-hoc, and so is anything later.
-- 5-minute resampling (our choice; the paper uses about 18–30 s) can miss events shorter than 5 minutes, **and it inflates absolute scores**. The official GlobalSTD5 rule, re-run in our pipeline, scores 0.400 on Mission 2 against 0.064 published (Mission 1: 0.009 vs 0.003). Our absolute F0.5 values are therefore **not comparable** to numbers published at the native rate (ESA-ADB, PitIA). Only comparisons within our pipeline are fair ([notes/step11](notes/step11-literature-and-baseline-reproduction.md)).
+- 5-minute resampling (our choice; the paper uses about 18–30 s) can miss events shorter than 5 minutes, **and it inflates absolute scores**. At ESA-ADB's native 18 s grid, our pipeline reproduces the official GlobalSTD baseline exactly (0.0638 vs 0.064 published), which validates our metric, labels and split. On our 5-min grid the same detector scores 0.400, because fewer, longer alarm events mean fewer false-positive events. Our absolute F0.5 values are therefore **not comparable** to numbers published at the native rate (ESA-ADB, PitIA). Only comparisons on the same grid are fair ([notes/step12](notes/step12-native-rate-reproduction.md)).
 - Numbers quoted from other papers: the PitIA results (0.424 / 0.882) are known to us only as cited by arXiv 2609.10017, and the ESA-ADB Mission 2 baseline is **0.079** (PCC; ESA-ADB v2 Table 2, all channels). The 0.241 quoted elsewhere is not an M2 event-wise score ([notes/step11](notes/step11-literature-and-baseline-reproduction.md)). **Prior cross-mission work exists:** Heydari, Mostafavi & Nyarko (IEEE Access, 2026, [doi:10.1109/ACCESS.2026.3714708](https://doi.org/10.1109/ACCESS.2026.3714708)) study M1↔M2 threshold transfer on ESA-ADB with a fixed robust-z scorer and workload metrics. We position against it and compare to it in Step 10 ([notes](notes/step9-literature-check.md)).
 
 ## 8. Reproduce
@@ -160,6 +160,7 @@ src/            pipeline: loader, preprocess, data, normaliser, detector, thresh
                 diag_transfer.py, adapt_stats.py (diagnostics), run_step9.py (dev check + final test)
                 rolling.py + step10.py (Step 10: rolling normalisation, baselines, fake-recall matching)
                 repro_globalstd.py (Step 11: official GlobalSTD baseline re-run in our pipeline)
+                repro_globalstd_native.py (Step 12: same baseline at 18 s / 1 min / 5 min grids)
 scripts/        make_figures.py
 results/        all CSVs and logs behind every number in this README
 figures/        README figures
