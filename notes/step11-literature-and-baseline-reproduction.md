@@ -70,7 +70,7 @@ Most likely reason (a hypothesis, **not yet tested**): our **5-minute grid**, wh
 - Fair comparisons are **within our pipeline**: GlobalSTD5 here scores 0.400 (M2) and 0.009 (M1), against our label-tuned 0.846 / 0.481.
 - The cross-mission findings (relative comparisons on the same grid) are unaffected.
 
-Next check (to do): run GlobalSTD on the native-rate data for M2 and see whether it reaches about 0.064. That would confirm the grid explanation.
+**Confirmed in Step 12:** at the native 18 s grid GlobalSTD5 scores 0.0638 (published 0.064). The grid explains the whole gap.
 
 ## 4. The paper's claim (roadmap item 9): decided
 **An analysis paper, not a "new SOTA method" paper.** Working title: *"The model transfers, the settings don't: a cross-mission study of label-free calibration for spacecraft anomaly detection on ESA-ADB."*

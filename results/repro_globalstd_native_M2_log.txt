@@ -1,0 +1,14 @@
+loaded 47 channels in 6s
+{'grid': '18s', 'tol': 3, 'official_F': np.float64(0.0075), 'P': 0.006, 'R': 0.9972, 'TP': 361, 'FP': 55923, 'alarm_events': 61840, 'alarm_frac': np.float64(0.0903), 'test_points': 3062400} [149s]
+{'grid': '18s', 'tol': 5, 'official_F': np.float64(0.0638), 'P': 0.0517, 'R': 0.9917, 'TP': 359, 'FP': 6552, 'alarm_events': 11090, 'alarm_frac': np.float64(0.031), 'test_points': 3062400} [55s]
+{'grid': '60s', 'tol': 3, 'official_F': np.float64(0.0163), 'P': 0.0131, 'R': 0.9972, 'TP': 361, 'FP': 25504, 'alarm_events': 27803, 'alarm_frac': np.float64(0.0913), 'test_points': 918720} [84s]
+{'grid': '60s', 'tol': 5, 'official_F': np.float64(0.1283), 'P': 0.1054, 'R': 0.9862, 'TP': 357, 'FP': 3016, 'alarm_events': 4770, 'alarm_frac': np.float64(0.0312), 'test_points': 918720} [42s]
+{'grid': '300s', 'tol': 3, 'official_F': np.float64(0.0619), 'P': 0.0502, 'R': 0.989, 'TP': 358, 'FP': 6329, 'alarm_events': 7070, 'alarm_frac': np.float64(0.0917), 'test_points': 183744} [46s]
+{'grid': '300s', 'tol': 5, 'official_F': np.float64(0.3997), 'P': 0.3481, 'R': 0.9807, 'TP': 355, 'FP': 660, 'alarm_events': 1254, 'alarm_frac': np.float64(0.031), 'test_points': 183744} [35s]
+grid  tol  official_F      P      R  TP    FP  alarm_events  alarm_frac  test_points
+ 18s    3      0.0075 0.0060 0.9972 361 55923         61840      0.0903      3062400
+ 18s    5      0.0638 0.0517 0.9917 359  6552         11090      0.0310      3062400
+ 60s    3      0.0163 0.0131 0.9972 361 25504         27803      0.0913       918720
+ 60s    5      0.1283 0.1054 0.9862 357  3016          4770      0.0312       918720
+300s    3      0.0619 0.0502 0.9890 358  6329          7070      0.0917       183744
+300s    5      0.3997 0.3481 0.9807 355   660          1254      0.0310       183744
