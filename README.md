@@ -114,6 +114,13 @@ Protocol and candidate list were frozen before any number ([protocol](notes/step
 
 Details: [notes/step10](notes/step10-baselines-and-final-test.md), [results/final_step10.csv](results/final_step10.csv).
 
+### 5.4 Step 13: confidence intervals, ablations, sensitivity (post-hoc)
+Month-block bootstrap over the test period (95% CI, 5 seeds): C3's M1→M2 gain over Step 9 is **+0.230 [+0.153, +0.315]**, clearly above noise. On M2→M1 C3 changes nothing. Heydari is clearly better with M2 as the target; C5 (rolling |z|) is clearly better with M1 as the target.
+- **Ablations:** the causal event builder is the most important part (removing it roughly halves F0.5). The autoencoder is what transfers: without it, M1→M2 drops to 0. The |z| level detector is essential on event-dense Mission 2 and harmful on drifting Mission 1 unless it is rolling.
+- **Sensitivity:** the label-free choice is **unstable** across injection repeats (the chosen setting changes in most subsets), and the rolling window matters for Mission 1. The amplitude floor is robust.
+
+Details: [notes/step13](notes/step13-ablations-ci-sensitivity.md), [results/step13_ci.csv](results/step13_ci.csv).
+
 ## 6. Analysis
 **Model vs settings** (online, CV on the target's training period):
 
@@ -149,6 +156,7 @@ python src/run_step9.py --test                 # final test (5 seeds, official m
 python src/inject.py --version 5 --source 1 --target 2   # Step 10: injection with rolling |z| (all 4 pairs)
 python src/step10.py --dev                     # Step 10: all baselines + candidates on training labels
 python src/step10.py --test                    # Step 10: one post-hoc test (5 seeds, official + anomalies-only)
+python src/step13.py --run && python src/step13.py --bootstrap   # Step 13 (needs inject runs: --roll-win 15/60, --amp-floor 0.2)
 python scripts/make_figures.py                 # figures/
 ```
 Runtime on an Apple-silicon laptop: about 5 min per calibration with Mission 2 as the target, about 23 min with Mission 1 as the target; the final test takes a few more minutes.
@@ -161,6 +169,7 @@ src/            pipeline: loader, preprocess, data, normaliser, detector, thresh
                 rolling.py + step10.py (Step 10: rolling normalisation, baselines, fake-recall matching)
                 repro_globalstd.py (Step 11: official GlobalSTD baseline re-run in our pipeline)
                 repro_globalstd_native.py (Step 12: same baseline at 18 s / 1 min / 5 min grids)
+                step13.py (Step 13: ablations, month-block bootstrap CIs, sensitivity)
 scripts/        make_figures.py
 results/        all CSVs and logs behind every number in this README
 figures/        README figures

@@ -31,6 +31,8 @@ MAX_DUR = 3 * DAY                              # duration cap: 3 days
 MONTH_NS = 30.44 * 86400e9
 TYPES = ("shift", "spike", "noise", "flat", "ramp")
 REPEATS = (0, 1, 2)
+ROLL_WIN_DAYS = 30                             # Step 13 sensitivity: --roll-win
+AMP_FLOOR = 0.05                               # Step 13 sensitivity: --amp-floor (v3/v5 replay amplitudes)
 
 
 def source_prior(m):
@@ -64,7 +66,7 @@ def source_prior_v3(m):
             b = max(t.searchsorted(r.EndTime), a + 1)
             if a < 1 or b > i:
                 continue
-            amps.append(max(float(np.abs(Z[a:b, j] - Z[a - 1, j]).max()), 0.05))   # floor 0.05
+            amps.append(max(float(np.abs(Z[a:b, j] - Z[a - 1, j]).max()), AMP_FLOOR))   # floor (default 0.05)
         if amps:
             events.append((dur, np.array(amps, dtype=np.float32)))
     months = (SPLIT[m] - t[0]).value / MONTH_NS
@@ -198,7 +200,7 @@ def gt_from(placed, tns_eval, offset):
 
 def scores(model, Z, roll=False):
     Sa = np.stack([score_ae([model], Z[:, j], AE["w"], AE["reduce"], True) for j in range(Z.shape[1])], 1)
-    Zb = rolling_center(Z) if roll else Z                             # Step 10 (v5): |z| on rolling re-centred z
+    Zb = rolling_center(Z, ROLL_WIN_DAYS * 288) if roll else Z                             # Step 10 (v5): |z| on rolling re-centred z
     Sb = np.stack([score_maxabs(Zb[:, j], ABS_W) for j in range(Z.shape[1])], 1)
     return Sa, Sb
 
@@ -261,10 +263,14 @@ if __name__ == "__main__":
     ap.add_argument("--source", type=int, required=True)
     ap.add_argument("--target", type=int, required=True)
     ap.add_argument("--version", type=int, default=1, choices=[1, 3, 4, 5])
+    ap.add_argument("--roll-win", type=int, default=30, help="Step 13: rolling window in days (v5)")
+    ap.add_argument("--amp-floor", type=float, default=0.05, help="Step 13: replay amplitude floor (v3/v5)")
+    ap.add_argument("--out", default="", help="Step 13: output subfolder of results/ (default by version)")
     a = ap.parse_args()
+    ROLL_WIN_DAYS, AMP_FLOOR = a.roll_win, a.amp_floor
     t0 = time.time()
     df, agg, best = calibrate(a.source, a.target, version=a.version)
-    out = ROOT / "results" / ("inject" if a.version == 1 else f"inject_v{a.version}")
+    out = ROOT / "results" / (a.out or ("inject" if a.version == 1 else f"inject_v{a.version}"))
     out.mkdir(parents=True, exist_ok=True)
     df.to_csv(out / f"S{a.source}_T{a.target}.csv", index=False)
     print(json.dumps(dict(source=a.source, target=a.target, secs=round(time.time() - t0), best=best)), flush=True)
