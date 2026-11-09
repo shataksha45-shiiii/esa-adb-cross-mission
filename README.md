@@ -163,22 +163,13 @@ Details: [notes/step13](notes/step13-ablations-ci-sensitivity.md), [results/step
 
 ## 8. Reproduce
 ```bash
-bash setup_env.sh && source .venv/bin/activate && pip install torch   # Python 3.13; torch uses Apple "mps" if available
-git clone https://github.com/kplabs-pl/ESA-ADB                         # official code (used for metric cross-check)
-# download the data from https://doi.org/10.5281/zenodo.12528696 into ESA-ADB/data/ESA-Mission{1,2}/
-python src/preprocess.py                       # raw channels -> 5-min cache/ (one-off)
-python src/run_final.py                        # Step 8: source-tuned transfer table
-python src/inject.py --version 3 --source 1 --target 2   # label-free calibration (repeat for all 4 pairs)
-python src/run_step9.py --dev                  # diagnosis on training labels
-python src/run_step9.py --test                 # final test (5 seeds, official metric)
-python src/inject.py --version 5 --source 1 --target 2   # Step 10: injection with rolling |z| (all 4 pairs)
-python src/step10.py --dev                     # Step 10: all baselines + candidates on training labels
-python src/step10.py --test                    # Step 10: one post-hoc test (5 seeds, official + anomalies-only)
-python src/step13.py --run && python src/step13.py --bootstrap   # Step 13 (needs inject runs: --roll-win 15/60, --amp-floor 0.2)
-python src/step14.py && python scripts/make_figures_step14.py      # Step 14
-python scripts/make_figures.py                 # figures/
+bash setup_env.sh                 # Python 3.13 venv from the pinned requirements.txt
+# get the data and the official code: see DATA_README.md
+bash reproduce.sh test            # 69 unit tests: metric = official code, online rules, no leaks (~10 s)
+bash reproduce.sh preprocess      # 5-min cache (one-off)
+bash reproduce.sh step8 step9 step10 step12 step13 step14 figures   # or: bash reproduce.sh all
 ```
-Runtime on an Apple-silicon laptop: about 5 min per calibration with Mission 2 as the target, about 23 min with Mission 1 as the target; the final test takes a few more minutes.
+Each stage writes the CSVs and logs behind one part of this README. `bash reproduce.sh` with no argument prints the map of stages, outputs and runtimes; the full run takes about 12 h on an Apple-silicon laptop. Seeds are fixed in the scripts.
 
 ## 9. Repository layout
 ```
@@ -190,7 +181,9 @@ src/            pipeline: loader, preprocess, data, normaliser, detector, thresh
                 repro_globalstd_native.py (Step 12: same baseline at 18 s / 1 min / 5 min grids)
                 step13.py (Step 13: ablations, month-block bootstrap CIs, sensitivity)
                 step14.py (Step 14: all official metrics + operator view); scripts/make_figures_step14.py
-scripts/        make_figures.py
+scripts/        make_figures.py (fig1-4), make_figures_step14.py (fig5-8)
+tests/          unit tests: evaluator vs official ESA-ADB code, fast/bootstrap evaluators, online rules, leak guards
+reproduce.sh    one command per result (stages: test, preprocess, step8 ... step14, figures)
 results/        all CSVs and logs behind every number in this README
 figures/        README figures
 notes/          lab notebook: one note per step (what, why, maths, code, what broke, self-test)

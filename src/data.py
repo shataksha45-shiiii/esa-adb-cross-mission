@@ -31,6 +31,7 @@ def load_mission(mission: int):
     # Each cached value is the LAST sample inside bin [b, b+5min). Label it by the bin's END (b+5min):
     # the value is only known then. Labelling by the start would use up to 5 min of future (online rule).
     times = pd.date_range(pd.Timestamp(start) + pd.Timedelta(STEP), periods=T, freq=STEP)
+    assert str(times.dtype) == "datetime64[ns]", times.dtype   # all evaluators convert times with .astype(int64) as ns
     return times, X, chans
 
 
