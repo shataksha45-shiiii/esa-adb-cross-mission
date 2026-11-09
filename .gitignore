@@ -1,0 +1,12 @@
+.venv/
+.DS_Store
+__pycache__/
+.ipynb_checkpoints/
+# external code + data (download separately, see README)
+ESA-ADB/
+cache/
+cache_preprocess.log
+# personal / tool files
+CLAUDE.md
+.claude/
+notes/STUDY-GUIDE-*.md

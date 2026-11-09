@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Label-free cross-mission anomaly detection for spacecraft telemetry (ESA-ADB)"
+authors:
+  - family-names: Sharma
+    given-names: Shataksha Raj
+date-released: 2026-11-09
+license: MIT
+references:
+  - type: article
+    title: "European Space Agency Benchmark for Anomaly Detection in Satellite Telemetry"
+    authors:
+      - family-names: Kotowski
+        given-names: Krzysztof
+    journal: "arXiv"
+    identifiers:
+      - type: other
+        value: "arXiv:2406.17826"

@@ -1,0 +1,25 @@
+seed 0 target M1 fold 0 done
+seed 0 target M1 fold 1 done
+seed 0 target M2 fold 0 done
+seed 0 target M2 fold 1 done
+seed 1 target M1 fold 0 done
+seed 1 target M1 fold 1 done
+seed 1 target M2 fold 0 done
+seed 1 target M2 fold 1 done
+                                               F      P      R      TP      FP
+target model       settings                                                   
+1      own         tuned on M1 (own)       0.554  0.809  0.257   13.00    7.75
+                   tuned on M2 (transfer)  0.226  0.237  0.371   18.50  154.75
+       transferred tuned on M1 (own)       0.473  0.901  0.164    8.25    1.00
+                   tuned on M2 (transfer)  0.212  0.220  0.350   17.50  157.50
+2      own         tuned on M1 (transfer)  0.186  0.980  0.046    7.25    0.25
+                   tuned on M2 (own)       0.858  0.878  0.798  113.25    3.75
+       transferred tuned on M1 (transfer)  0.248  0.972  0.066   10.50    0.50
+                   tuned on M2 (own)       0.860  0.881  0.795  113.00    3.50
+
+AE-only, best grid setting (optimistic):
+ target       model settings     F
+      1         own  grid819 0.604
+      1 transferred  grid981 0.571
+      2         own   grid17 0.734
+      2 transferred   grid16 0.776

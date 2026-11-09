@@ -1,0 +1,44 @@
+  baseline   M1->M1 seed -1: F0.5=0.071 official=0.07121566771535337 TP=21 FP=276
+  baseline   M1->M2 seed -1: F0.5=0.040 official=0.04010641445389312 TP=3 FP=0
+  baseline   M2->M1 seed -1: F0.5=0.052 official=0.05183208307161311 TP=25 FP=438
+  baseline   M2->M2 seed -1: F0.5=0.843 official=0.8432870068877214 TP=210 FP=2
+  fusedAE    M1->M1 seed 0: F0.5=0.503 official=0.5031331503870418 TP=16 FP=1
+  fusedAE    M1->M2 seed 0: F0.5=0.090 official=0.08974304956902865 TP=7 FP=0
+  [59s]
+  fusedAE    M2->M1 seed 0: F0.5=0.068 official=0.06816144500544805 TP=33 FP=431
+  fusedAE    M2->M2 seed 0: F0.5=0.844 official=0.8435071286475185 TP=213 FP=3
+  [58s]
+  fusedAE    M1->M1 seed 1: F0.5=0.420 official=nan TP=12 FP=1
+  fusedAE    M1->M2 seed 1: F0.5=0.090 official=nan TP=7 FP=0
+  [16s]
+  fusedAE    M2->M1 seed 1: F0.5=0.064 official=nan TP=31 FP=436
+  fusedAE    M2->M2 seed 1: F0.5=0.846 official=nan TP=213 FP=2
+  [23s]
+  fusedAE    M1->M1 seed 2: F0.5=0.521 official=nan TP=17 FP=1
+  fusedAE    M1->M2 seed 2: F0.5=0.102 official=nan TP=8 FP=0
+  [18s]
+  fusedAE    M2->M1 seed 2: F0.5=0.065 official=nan TP=32 FP=438
+  fusedAE    M2->M2 seed 2: F0.5=0.846 official=nan TP=213 FP=2
+  [19s]
+  fusedAE    M1->M1 seed 3: F0.5=0.503 official=nan TP=16 FP=1
+  fusedAE    M1->M2 seed 3: F0.5=0.065 official=nan TP=5 FP=0
+  [16s]
+  fusedAE    M2->M1 seed 3: F0.5=0.069 official=nan TP=33 FP=427
+  fusedAE    M2->M2 seed 3: F0.5=0.847 official=nan TP=214 FP=2
+  [18s]
+  fusedAE    M1->M1 seed 4: F0.5=0.460 official=nan TP=15 FP=3
+  fusedAE    M1->M2 seed 4: F0.5=0.090 official=nan TP=7 FP=0
+  [16s]
+  fusedAE    M2->M1 seed 4: F0.5=0.066 official=nan TP=32 FP=431
+  fusedAE    M2->M2 seed 4: F0.5=0.846 official=nan TP=213 FP=2
+  [18s]
+                            F   Fstd      P      R     TP     FP
+detector source target                                          
+baseline 1      1       0.071    NaN  0.061  0.231   21.0  276.0
+                2       0.040    NaN  1.000  0.008    3.0    0.0
+         2      1       0.052    NaN  0.043  0.275   25.0  438.0
+                2       0.843    NaN  0.951  0.580  210.0    2.0
+fusedAE  1      1       0.481  0.041  0.917  0.167   15.2    1.4
+                2       0.087  0.013  1.000  0.019    6.8    0.0
+         2      1       0.066  0.002  0.055  0.354   32.2  432.6
+                2       0.846  0.002  0.950  0.589  213.2    2.2

@@ -1,0 +1,26 @@
+dev M1->M1 done
+dev M1->M2 done
+dev M2->M1 done
+dev M2->M2 done
+                                                    F      P      R     TP     FP
+source target settings                                                           
+1      1      injection v1 (label-free)         0.387  1.000  0.114    6.5    0.0
+              injection v2 (label-free)         0.478  0.724  0.207   11.5    2.5
+              injection v3 (label-free)         0.478  0.724  0.207   11.5    2.5
+              tuned on M1 labels                0.573  0.849  0.250   12.5    2.5
+              tuned on M1 labels (upper bound)  0.573  0.849  0.250   12.5    2.5
+       2      injection v1 (label-free)         0.129  0.999  0.030    5.0    0.0
+              injection v2 (label-free)         0.129  0.999  0.030    5.0    0.0
+              injection v3 (label-free)         0.380  0.982  0.128   21.0    0.5
+              tuned on M1 labels                0.242  0.973  0.065   10.5    0.5
+              tuned on M2 labels (upper bound)  0.860  0.881  0.795  113.0    3.5
+2      1      injection v1 (label-free)         0.400  0.676  0.171    9.0   11.0
+              injection v2 (label-free)         0.507  0.728  0.236   13.0    3.0
+              injection v3 (label-free)         0.507  0.728  0.236   13.0    3.0
+              tuned on M2 labels                0.217  0.228  0.350   17.5  155.5
+              tuned on M1 labels (upper bound)  0.503  0.923  0.179    9.0    1.0
+       2      injection v1 (label-free)         0.425  0.964  0.152   24.5    1.5
+              injection v2 (label-free)         0.230  0.999  0.059    9.5    0.0
+              injection v3 (label-free)         0.299  0.859  0.090   14.5    1.5
+              tuned on M2 labels                0.861  0.881  0.800  113.5    3.5
+              tuned on M2 labels (upper bound)  0.861  0.881  0.800  113.5    3.5

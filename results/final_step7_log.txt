@@ -1,0 +1,44 @@
+  baseline   M1->M1 seed -1: F0.5=0.068 TP=21 FP=295
+  baseline   M1->M2 seed -1: F0.5=0.027 TP=2 FP=0
+  baseline   M2->M1 seed -1: F0.5=0.036 TP=25 FP=682
+  baseline   M2->M2 seed -1: F0.5=0.862 TP=205 FP=1
+  fusedAE    M1->M1 seed 0: F0.5=0.475 TP=17 FP=5
+  fusedAE    M1->M2 seed 0: F0.5=0.040 TP=3 FP=0
+  [26s]
+  fusedAE    M2->M1 seed 0: F0.5=0.039 TP=28 FP=693
+  fusedAE    M2->M2 seed 0: F0.5=0.862 TP=205 FP=1
+  [30s]
+  fusedAE    M1->M1 seed 1: F0.5=0.491 TP=16 FP=2
+  fusedAE    M1->M2 seed 1: F0.5=0.040 TP=3 FP=0
+  [28s]
+  fusedAE    M2->M1 seed 1: F0.5=0.042 TP=30 FP=687
+  fusedAE    M2->M2 seed 1: F0.5=0.862 TP=205 FP=1
+  [23s]
+  fusedAE    M1->M1 seed 2: F0.5=0.587 TP=21 FP=1
+  fusedAE    M1->M2 seed 2: F0.5=0.040 TP=3 FP=0
+  [26s]
+  fusedAE    M2->M1 seed 2: F0.5=0.041 TP=29 FP=688
+  fusedAE    M2->M2 seed 2: F0.5=0.862 TP=205 FP=1
+  [31s]
+  fusedAE    M1->M1 seed 3: F0.5=0.507 TP=21 FP=8
+  fusedAE    M1->M2 seed 3: F0.5=0.040 TP=3 FP=0
+  [17s]
+  fusedAE    M2->M1 seed 3: F0.5=0.042 TP=30 FP=691
+  fusedAE    M2->M2 seed 3: F0.5=0.863 TP=206 FP=1
+  [19s]
+  fusedAE    M1->M1 seed 4: F0.5=0.531 TP=19 FP=3
+  fusedAE    M1->M2 seed 4: F0.5=0.040 TP=3 FP=0
+  [22s]
+  fusedAE    M2->M1 seed 4: F0.5=0.039 TP=28 FP=694
+  fusedAE    M2->M2 seed 4: F0.5=0.862 TP=205 FP=1
+  [22s]
+                            F   Fstd      P      R     TP     FP
+detector source target                                          
+baseline 1      1       0.068    NaN  0.057  0.231   21.0  295.0
+                2       0.027    NaN  1.000  0.006    2.0    0.0
+         2      1       0.036    NaN  0.029  0.275   25.0  682.0
+                2       0.862    NaN  0.991  0.566  205.0    1.0
+fusedAE  1      1       0.518  0.044  0.841  0.207   18.8    3.8
+                2       0.040  0.000  1.000  0.008    3.0    0.0
+         2      1       0.041  0.001  0.033  0.319   29.0  690.6
+                2       0.862  0.001  0.991  0.567  205.2    1.0

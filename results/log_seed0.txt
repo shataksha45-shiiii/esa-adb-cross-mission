@@ -1,0 +1,49 @@
+[train] model on mission 1 train period
+  step     0  loss 1.0230
+  step   500  loss 0.0480
+  step  1000  loss 0.0437
+  step  1500  loss 0.0368
+  step  2000  loss 0.0340
+  step  2500  loss 0.0391
+  step  3000  loss 0.0342
+  step  3500  loss 0.0382
+  step  4000  loss 0.0300
+  step  4500  loss 0.0424
+  step  5000  loss 0.0506
+  step  5500  loss 0.0295
+  step  5999  loss 0.0298
+  done in 26s
+[train] model on mission 2 train period
+  step     0  loss 1.9017
+  step   500  loss 0.8102
+  step  1000  loss 0.7161
+  step  1500  loss 0.5413
+  step  2000  loss 0.5379
+  step  2500  loss 0.5234
+  step  3000  loss 0.6881
+  step  3500  loss 0.5716
+  step  4000  loss 0.6440
+  step  4500  loss 0.7418
+  step  5000  loss 0.5669
+  step  5500  loss 0.6428
+  step  5999  loss 0.5625
+  done in 27s
+[eval] test M1 AE(trained on M1): 16s
+[eval] test M1 AE(trained on M2): 16s
+[eval] test M1 baseline max|z|: 9s
+[eval] test M2 AE(trained on M1): 4s
+[eval] test M2 AE(trained on M2): 4s
+[eval] test M2 baseline max|z|: 3s
+    test_mission           detector        q  headline          categories  alarm_frac  TP   FP   FN       TNR  precision    recall      F0.5
+4              1  AE(trained on M1)  0.00001      True  Rare Event+Anomaly    0.025735  24  136   67  0.991938   0.148791  0.263736  0.162999
+5              1  AE(trained on M1)  0.00001      True             Anomaly    0.025735   9  136   46  0.991938   0.061569  0.163636  0.070344
+14             1  AE(trained on M2)  0.00001      True  Rare Event+Anomaly    0.068545  29  249   62  0.955578   0.099683  0.318681  0.115566
+15             1  AE(trained on M2)  0.00001      True             Anomaly    0.068545  12  249   43  0.955578   0.043935  0.218182  0.052286
+24             1    baseline max|z|  0.00001      True  Rare Event+Anomaly    0.253721  28  172   63  0.763963   0.106955  0.307692  0.123004
+25             1    baseline max|z|  0.00001      True             Anomaly    0.253721  17  172   38  0.763963   0.068716  0.309091  0.081373
+34             2  AE(trained on M1)  0.00001      True  Rare Event+Anomaly    0.000816   4    0  358  0.999962   0.999962  0.011050  0.052910
+35             2  AE(trained on M1)  0.00001      True             Anomaly    0.000816   0    0    6  1.000000   0.000000  0.000000  0.000000
+44             2  AE(trained on M2)  0.00001      True  Rare Event+Anomaly    0.000773   3    0  359  0.999815   0.999815  0.008287  0.040107
+45             2  AE(trained on M2)  0.00001      True             Anomaly    0.000773   0    0    6  1.000000   0.000000  0.000000  0.000000
+54             2    baseline max|z|  0.00001      True  Rare Event+Anomaly    0.014286   6   10  356  0.985850   0.369694  0.016575  0.070271
+55             2    baseline max|z|  0.00001      True             Anomaly    0.014286   1   10    5  0.985850   0.089623  0.166667  0.098753
