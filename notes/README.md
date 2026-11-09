@@ -28,3 +28,4 @@ One note per step: what was done, why, key terms, the maths, the code line by li
 | 13 | [**Protocol (frozen)**](step13-protocol-frozen.md) |
 | 13 | [Ablations, bootstrap CIs, sensitivity](step13-ablations-ci-sensitivity.md) |
 | 14 | [All official metrics, operator view, failure figures](step14-official-metrics-operator-view-figures.md) |
+| 15 | [Reproducibility: tests, one-command reproduce, pinned env, file map](step15-reproducibility-and-cleanup.md) |

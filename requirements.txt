@@ -1,8 +1,13 @@
-# tested with Python 3.13.7
+# tested with Python 3.13.7 on macOS (Apple silicon; torch uses "mps" if available, else CPU)
 numpy==2.5.4
 pandas==3.1.0
 scipy==1.18.1
 scikit-learn==1.9.1
 matplotlib==3.11.2
 torch==2.15.0
-pyarrow
+pyarrow==26.0.1
+# needed by the official ESA-ADB metric code (ESA-ADB/timeeval/metrics), used as a cross-check
+portion==2.6.3
+python-dateutil==4.0.0
+# tests
+pytest==9.2.0

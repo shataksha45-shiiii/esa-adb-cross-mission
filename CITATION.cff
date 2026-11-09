@@ -1,11 +1,19 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "Label-free cross-mission anomaly detection for spacecraft telemetry (ESA-ADB)"
+version: 0.3.0
+date-released: 2026-11-10
 authors:
   - family-names: Sharma
     given-names: Shataksha Raj
-date-released: 2026-11-09
 license: MIT
+repository-code: "https://github.com/shataksha45-shiiii/esa-adb-cross-mission"
+keywords:
+  - anomaly detection
+  - spacecraft telemetry
+  - ESA-ADB
+  - transfer learning
+  - label-free calibration
 references:
   - type: article
     title: "European Space Agency Benchmark for Anomaly Detection in Satellite Telemetry"
@@ -16,3 +24,16 @@ references:
     identifiers:
       - type: other
         value: "arXiv:2406.17826"
+  - type: article
+    title: "Workload-Constrained Cross-Mission Deployment of Spacecraft Telemetry Anomaly Alerting: Policy-Layer Feasibility Diagnostics and Limits"
+    authors:
+      - family-names: Heydari
+        given-names: Vahid
+      - family-names: Mostafavi
+        given-names: Parisa
+      - family-names: Nyarko
+        given-names: Kofi
+    journal: "IEEE Access"
+    volume: 14
+    year: 2026
+    doi: "10.1109/ACCESS.2026.3714708"
